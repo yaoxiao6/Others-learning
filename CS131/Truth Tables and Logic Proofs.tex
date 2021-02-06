@@ -1,0 +1,220 @@
+\documentclass{article}
+
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\headsep}{30pt}
+\setlength{\topmargin}{-0.3in}
+
+\title{\vspace{-4em}Truth Tables and Logic Proofs: A \LaTeX{} Guide\vspace{-3em}}
+\date{}
+\author{}
+
+\usepackage{minted}
+\usepackage{hyperref}
+\usepackage{amsmath}
+
+\begin{document}
+
+\definecolor{bg}{rgb}{0.97,0.97,0.97}
+
+\maketitle
+
+\begin{section}{Introduction}
+
+This document explains in detail how to construct a Truth Table using the Tabular environment and how to align equations for logical proofs using the Align environment. Feel free to also copy and paste our tables and aligned equations for use on your homework! You can also figure out how we made this fantastic document with the highlighting and backgrounds as well if you look at the underlying TeX document! This TeX document also uses some pretty standard features of \LaTeX{} like sections, so you can also learn how those work!
+\end{section}
+
+\begin{section}{Truth Tables}
+
+To construct a Truth Table we use the Tabular environment. More information can be found here: \url{https://www.overleaf.com/learn/latex/Tables#Creating_a_simple_table_in_LaTeX} \medskip
+
+\noindent Consider the following \LaTeX{} block:
+
+\begin{minted}[bgcolor=bg]{tex}
+
+    \begin{tabular}{| c | c | c || c |}
+        \hline
+         $p$ & $q$ & $r$ & $p \land (q \land r)$ \\ \hline \hline
+         T & T & T & T \\ \hline
+         T & T & F & F \\ \hline
+         T & F & T & F \\ \hline
+         T & F & F & F \\ \hline
+         F & T & T & T \\ \hline
+         F & T & F & F \\ \hline
+         F & F & T & F \\ \hline
+         F & F & F & F \\ \hline
+    \end{tabular}
+\end{minted}
+
+\noindent This outputs the following table: \medskip
+
+\begin{tabular}{| c | c | c || c |}
+    \hline
+     $p$ & $q$ & $r$ & $p \land (q \land r)$ \\ \hline \hline
+     T & T & T & T \\ \hline
+     T & T & F & F \\ \hline
+     T & F & T & F \\ \hline
+     T & F & F & F \\ \hline
+     F & T & T & T \\ \hline
+     F & T & F & F \\ \hline
+     F & F & T & F \\ \hline
+     F & F & F & F \\ \hline
+\end{tabular} \medskip
+
+\noindent Consider the first line:
+\begin{minted}[bgcolor=bg]{tex}
+    \begin{tabular}{| c | c | c || c |}
+\end{minted}
+
+\noindent The arguments we give after beginning the tabular environment tell \LaTeX what one of the rows of the table should look like. We want 4 columns, and between each column we want a vertical line. However, we want to separate the literal columns from the more complicated expressions. To do this we have told \LaTeX{} that we want two vertical lines between the third and fourth column. Now consider the next line:
+
+\begin{minted}[bgcolor=bg]{tex}
+    \hline
+\end{minted}
+
+\noindent This adds the top horizontal line (called an hline) to the table. Without it there would be no border at the top. Try removing it and see what happens!
+
+\begin{minted}[bgcolor=bg]{tex}
+     $p$ & $q$ & $r$ & $p \land (q \land r)$ \\ \hline \hline
+\end{minted}
+
+\noindent Now we start filling out our table. \& separates cells in our table. \textbackslash \textbackslash \space Gives us a new row of the table. Once again \textbackslash hline adds a horizontal line to the top of the cell. Here we want to separate the header from the actual body of the table so we add two horizontal lines. We now fill in the table as seen, again separating our cells by $\&$ and rows by \textbackslash \textbackslash. So hopefully as you can see it's fairly straightforward to make a table in \LaTeX{}. \medskip
+
+You can also just copy the \LaTeX{} from this document and adjust it as you need it for the homework. Give it a try and if you have any problems just ask for help! Or Google!
+
+\end{section}
+
+\begin{section}{Aligning Equations}
+Consider the following block of \LaTeX{}:
+\begin{minted}[bgcolor=bg]{tex}
+    \begin{equation}
+        \neg (p \land q)
+    \end{equation}
+    \begin{equation}
+        \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{equation}
+\end{minted}
+
+\noindent This produces the following:
+
+    \begin{equation}
+        \neg (p \land q) \\
+    \end{equation}
+    \begin{equation}
+        \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{equation}
+\end{section}
+
+While this would be one way to write our proofs (as it numbers the lines for us conveniently) it has one glaring flaw: the equations are misaligned! When we do a proof like this we want one line to immediately lead into the next, making it easier for the reader. Now the reader's eyes have to jump around the page. What a disaster! We could try to do something complicated with justifying our text or using hboxes to center the equations but that would be absolutely terrible and neither you nor I have the time to do that.
+
+During my undergrad, my math professors always used to say that ``A good mathematician is a lazy mathematician." Lucky for us, mathematicians always want to align their equations. That means that there must be some incredibly lazy way to do what we want. Indeed it's true; someone else has already put in the effort to make it quick and easy for us to align our equations. ``Who?" you might ask, since credit where credit's due. The answer: The American Mathematical Society. I guess some mathematician over there isn't lazy. We better amend that saying then because I'm sure she or he is a good mathematician! In any case, thankfully that person will help us be lazy. 
+
+To easily align our equations we'll be using what's aptly called the Align environment. To use it though, we first need to include the following in our preamble:
+
+\begin{minted}[bgcolor=bg]{tex}
+    \usepackage{amsmath}
+\end{minted}
+
+Without it our document won't compile. Then we can use the align environment as follows:
+
+\begin{minted}[bgcolor=bg]{tex}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{align}
+\end{minted}
+
+Let's first see what that produces before we talk about it:
+
+\begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+\end{align}
+
+Much better! See how the equations are aligned with one anoth---Wait. Now the numbers on the side are no good! Well I think we can fix it but first let's talk about how align works. Then we can see about fixing the numbering.
+
+Align works very similarly to how Tabular worked. \textbackslash \textbackslash gives you a new line, and every line is numbered. But how does it decide where to align the pieces of text? Well it aligns the \& characters. If we move the \& as follows, watch how the texts still align so that if the \&s were printed then they would be aligned.
+
+\begin{minted}[bgcolor=bg]{tex}
+    \begin{align}
+        \neg (p \land q) & \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{align}
+\end{minted}
+
+    \begin{align}
+        \neg (p \land q) & \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{align}
+
+And hopefully that explains the basics. You can find more out here: 
+\url{https://www.overleaf.com/learn/latex/Aligning_equations_with_amsmath} \medskip
+
+\noindent But wait! The line numbers are still messed up! Come back and fix this with me! \medskip
+
+The first step to fixing the problem is to identfity why it is happening. So we must ask ourselves ``How in the world is Align keeping count of the line numbers?" The answer is simple really, counters! Counters are like integer variables in \LaTeX{}, and are used behind the scenes for numbering. Align uses the ``equation" counter, which the equation environment also uses. So our align environments started at 3 and 5 because we had already incremented the counter up to 3 and 5 by using the equations environment earlier in this document. \medskip
+
+\noindent To fix it we just need to reset the counter before using an align environment:
+
+\begin{minted}[bgcolor=bg]{tex}
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{align}
+\end{minted}
+
+Now that the counter is set to zero, align increments the counter and then labels the first line 1. Well, that's the theory anyway. Let's test it out!
+
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law})
+    \end{align}
+
+\noindent Great! Now it's perfect! It's so much easier on the eyes to follow the equations now. \medskip
+
+But let's take this one step further! Consider the following:
+
+\begin{minted}[bgcolor=bg]{tex}
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law}) \\
+        & \neg (\neg p) \rightarrow \neg q \quad (\textbf{Conditional Identity}) \\
+        & p \rightarrow \neg q \quad (\textbf{Double Negation})
+    \end{align}
+\end{minted}
+
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad (\textbf{DeMorgan's Law}) \\
+        & \neg (\neg p) \rightarrow \neg q \quad (\textbf{Conditional Identity}) \\
+        & p \rightarrow \neg q \quad (\textbf{Double Negation})
+    \end{align}
+    
+\noindent I hate to say it since we put in all that effort but this is still sort of ugly! Certainly not as ugly as it was before, but it could still be improved! Notice how our explanations don't align! I wonder if we can fix this just by adding more \&s!
+
+\begin{minted}[bgcolor=bg]{tex}
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad & &(\textbf{DeMorgan's Law}) \\
+        & \neg (\neg p) \rightarrow \neg q \quad & &(\textbf{Conditional Identity}) \\
+        & p \rightarrow \neg q \quad & &(\textbf{Double Negation})
+    \end{align}
+\end{minted}
+
+    \setcounter{equation}{0}
+    \begin{align}
+        & \neg (p \land q) \\
+        & \neg p \lor \neg q \quad & &(\textbf{DeMorgan's Law}) \\
+        & \neg (\neg p) \rightarrow \neg q \quad & &(\textbf{Conditional Identity}) \\
+        & p \rightarrow \neg q \quad & &(\textbf{Double Negation})
+    \end{align}
+
+\noindent Now our reasons are also aligned! How did this work? Well like tabular the second $\&$ on the line tells \LaTeX{} that we want a second column to align. Then the third $\&$ is the one used to align the second column. If we had more columns we wanted we could do another two \&s. Whew, I think that's all! Now we can make pretty logic proofs instead of ugly ones! What an improvement! Our readers will be very happy we put in the effort to make it easy to read and understand.
+\end{document}

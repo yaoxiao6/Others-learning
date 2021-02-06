@@ -1,0 +1,298 @@
+\documentclass[11pt]{article}
+
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\headsep}{30pt}
+\setlength{\topmargin}{-0.3in}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\newcommand{\addmedskip}{\addvspace{\medskipamount}}
+\newcommand{\addbigskip}{\addvspace{\bigskipamount}}
+
+\newcounter{problemnum}
+\setcounter{problemnum}{0}
+\newenvironment{problem}
+  {\addbigskip \setcounter{partnum}{0}
+   \noindent\stepcounter{problemnum}\textbf{Problem \arabic{problemnum}.\ }}
+  {\par\addbigskip}
+
+\newcounter{partnum}
+\setcounter{partnum}{0}
+\newenvironment{ppart}
+  {\addmedskip
+   \noindent\stepcounter{partnum}\textbf{\alph{partnum})}\ }
+  {\par\addbigskip}
+
+\newcommand{\problemset}[2]{
+  \begin{center}
+  \Large{\textbf{CS 131 -- Spring 2020, Assignment #1}}\\
+  \large{\textbf{Problems must be submitted by #2, on Gradescope.}}
+  \end{center}
+}
+
+\newcommand{\discsheet}[2]{
+  \begin{center}
+  \Large{\textbf{CS 131 -- Spring 2020, Discussion Worksheet #1}}\\
+  \large{\textbf{#2}}
+  \end{center}
+}
+
+\newcommand\abs[1]{\lvert{#1}\rvert}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\inte}{\mathbb{Z}}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+\usepackage{hyperref}
+\usepackage{minted}
+
+
+%!TEX root = s.tex
+%\usepackage{hyperref}
+\usepackage{minted}
+%\usepackage{boxproof}
+\usepackage{mathtools,amssymb,hyperref}
+\usepackage{enumitem} 
+\usepackage{syllogism}
+\newcommand\eqdef {\stackrel{\mathclap{\normalfont\mbox{def}}}{=}}
+\begin{document}
+\problemset{3}{Wednesday February 12, 2020 11:59pm}
+
+\noindent
+
+\begin{problem}[30 Points]
+
+\begin{ppart}
+Let $a_3a_2a_1a_0$ and $b_3b_2b_1b_0$ be $4$-bit binary numbers,
+where $a_3$ and $b_3$ are the most significant bits and $a_0$ and $b_0$
+are the least significant bits.
+Write a Boolean formula that evaluates to true if
+$a_3a_2a_1a_0 > b_3b_2b_1b_0$, and false otherwise.
+
+\end{ppart}
+
+\begin{ppart}
+Let $a_2a_1a_0$ and $b_2b_1b_0$ be $3$-bit binary numbers,
+and let $c_3c_2c_1c_0 = a_2a_1a_0 + b_2b_1b_0$ be $4$-bit binary number.
+For example, $1011 = 101 + 110$.
+Write boolean expressions for $c_2$, $c_1$, $c_0$.
+
+You should also be able to write a formula for $c_3$ but no need to submit it.
+
+
+\end{ppart}
+
+\begin{ppart}
+Let $a_9a_8a_7a_6a_5a_4a_3a_2a_1a_0$ be a $10$-bit binary number.
+Write a boolean formula that evaluates to true if an even number of digits of
+this number is $1$, and false otherwise.
+
+
+\end{ppart}
+\end{problem}
+
+\begin{problem} [20]
+
+Are the following functions satisfiable?
+
+If the function is satisfiable, with a single line containing $4$
+comma-separated values, each of which is either \texttt{True} or \texttt{False},
+for $x$, $y$, $z$, $v$ in this order.
+For example, you would submit: \texttt{True},\texttt{False},\texttt{True},\texttt{False}.
+
+If the function is not satisfiable, use the laws of propositional logic to prove
+that the function is a contradiction.
+
+\begin{ppart}
+$x\bar{y} + zv$
+
+
+\end{ppart}
+
+\begin{ppart}
+$(x+y)(\bar{x} + z)(\bar{y} + \bar{z})(x + v)$
+
+
+\end{ppart}
+
+\begin{ppart}
+$x\bar{x} + y\bar{y} + z\bar{z} + v\bar{v}$
+
+
+\end{ppart}
+
+\begin{ppart}
+$(x + y)\overline{(x + y + z)} + (x + y + z)\overline{(x + y + z + v)}$
+
+
+\end{ppart}
+\end{problem}
+
+\begin{problem} (15 points)
+You recently started working in VLSI company, and your first task is to
+construct a circuit including two sub-circuits two that produces from input bits $p,q,r$
+the desired output
+$((\lnot p \lor \lnot r) \wedge \lnot q) \lor (\lnot p \wedge (q \lor r))$.
+You can use {\em OR} gates, {\em AND} gates, and inverters ($\neg$).
+
+\begin{ppart}
+Simplify the above Boolean function to be able to construct a circuit including two sub-circuits.
+
+\end{ppart}
+\begin{ppart}
+Draw the circuit for the simplified Boolean function which includes two sub-circuits. 
+
+\end{ppart}
+\end{problem}
+
+\begin{problem} [15 points]
+	Argue whether each of the following arguments is valid or not. For the valid arguments, which rule of inference is used? For the invalid arguments, explain why they are invalid.
+	
+	\begin{ppart}
+		Kangaroos live in Australia and are marsupials. Therefore, kangaroos are marsupials.
+		
+		
+	\end{ppart}
+	
+	\begin{ppart}
+		It is either hotter than 100 degrees today or pollution is dangerous. It is less than 100 degrees today. Therefore, pollution is dangerous.
+		
+		
+	\end{ppart}
+	
+	\begin{ppart}
+		Linda is an excellent swimmer. If Linda is an excellent swimmer, then she can work as a lifeguard. Therefore, Linda can work as a lifeguard.
+		
+	
+	\end{ppart}
+	
+	\begin{ppart}
+		Steve will work in the computer company this summer. Therefore, this summer Steve will work at a computer company or he will be beach bum.
+		
+	
+	\end{ppart}
+
+	\begin{ppart}
+		If I exercise every day, I will become an athlete. I am an athlete. Therefore, I exercise every day.
+		
+		
+	\end{ppart}
+
+	
+	\begin{ppart}
+		If I work all night on this homework, then I can answer all the exercises. If I answer all the exercises, I will understand the material. Therefore, if I work all night on this homework, then I will understand the material.
+		
+		
+	\end{ppart}
+
+
+\end{problem}
+
+ \begin{problem} [20 Points]
+ Use logical reasoning to prove the following statements. Note that you can only use the rules in Table 3.2.1 in chapter 3 in the book, DeMorgan's law, contrapositive rule that has this format:
+ 
+ \medskip
+ \begin{tabular}{c}
+	$A \rightarrow B$ \\
+	\hline 
+	$\therefore  \neg B \rightarrow \neg A$
+ \end{tabular}
+ \medskip
+ 
+and a new rule that's called Conditional Simplification that has this format:
+ 
+\medskip
+
+ \begin{tabular}{c}
+  	$A \rightarrow B \land C$ \\
+  	\hline 
+  	$\therefore   A \rightarrow B$
+ \end{tabular}
+ 
+\medskip
+
+ (Note that both rules can be proved by laws of propositional logic.)
+ 
+ \begin{ppart}
+ 
+\begin{tabular}{c}
+	$\neg r \rightarrow \neg s$ \\
+	$p \rightarrow u$ \\
+	$\neg t \rightarrow \neg r$ \\ 
+	$u \rightarrow s$ \\ 
+	$t \rightarrow q$ \\
+	\hline 
+	$\therefore   p \rightarrow q$
+\end{tabular}
+ \end{ppart}
+
+
+
+\begin{ppart}
+
+	\begin{tabular}{c}
+		$p\rightarrow (q \land r)$ \\
+		$s \rightarrow r$ \\
+		$r \rightarrow p$ \\ 
+		\hline 
+		 $ \therefore s \rightarrow q$
+	\end{tabular}
+\end{ppart}
+
+
+
+\end{problem}
+
+
+
+
+\begin{problem} [Bonus 10 Points]
+	Scheduling with constraints: We have 3 time slots and 6 classes $A,B,C,D,E,F$. The following class pairs cannot be scheduled together $(A,B), (A,C), (A,E), (B,D),\allowbreak (C,E), (C,D), (D,F),(E,F)$. For each class, there are three variables. For example, for class A, there are \texttt{a1,a2} and \texttt{a3}. If \texttt{a1=True} this means that class A is scheduled in period 1. Write all your functions in the following parts in python. In each part, make sure that the names of your functions match the names of the functions that we are asking you to write. Note that for each part you can call functions from previous parts. There are two sets of test cases. The autograder on Gradescope will only reveal the results of one set of cases. You will not know the results of the other set of test cases. This is done to encourage you to test your own code.
+	\\
+	Note: \textbf{Place all the functions in a single python file and make sure to name your python file \underline{ps3.py} for the auto-grader to recognize and compile the file. Also, do not include any print statements or header documentation in the file. Use function names \underline{as required by each question}}.
+	
+\begin{ppart} 
+Define a function \texttt{s(x1,x2,x3)} that outputs True if the class X is scheduled at least once. The first line in your code should be \texttt{def s(x1, x2, x3)}
+		
+		
+\end{ppart}
+
+\begin{ppart} 
+Define a function \texttt{n(x1,x2,x3)} that outputs True if the class X is scheduled no more than once.
+		
+\end{ppart}
+
+\begin{ppart} 
+Define a function \texttt{ns(x1,x2,x3)} that outputs True if the class X is scheduled exactly once.
+
+	
+\end{ppart}
+
+\begin{ppart} 
+Define a function \texttt{c(x1,x2,x3,y1,y2,y3)} that outputs True if two classes X and Y are scheduled in different time slots.
+
+	
+\end{ppart}
+\begin{ppart} 
+Define a function \texttt{isValid(a1, a2, a3, b1, b2, b3, c1, c2, c3, d1, d2, d3, e1, e2, e3, f1, f2, f3)} that outputs True if the schedule is valid for classes A,B,C,D,E, and F.
+
+\end{ppart}
+
+\end{problem}
+
+
+\end{document}

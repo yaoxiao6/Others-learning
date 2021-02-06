@@ -1,0 +1,173 @@
+% The first thing to know is that lines are commented out using %. Comments do not impact the resulting document.
+
+% A TeX file is broken down into two parts: the preamble and the document
+% The preamble is first and contains commands which impact the entire document
+% Besides basic text, LaTeX allows for the use of commands which are helpful tools to format your document. Commands begin with a \
+
+% \documentclass[options]{class} is a default command which broadly formats the overall style of the document. There are a few default classes, such as article, report, letter, beamer, etc. You will want to use article but feel free to mess around with document styles. options are optional arguments that can be provided, such as main font size. In this document the default font size has been set to 11pt. Arguments are separated by a comma. Try adding the optional argument landscape and see what happens. This should always be one of the first things in your file!
+\documentclass[11pt]{article}
+
+% These are setting margin sizes and text heights. Try changing various values to see what happens!
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6.5in}
+\setlength{\evensidemargin}{-0.2in}
+\setlength{\oddsidemargin}{-0.2in}
+\setlength{\headsep}{30pt}
+\setlength{\topmargin}{-0.3in}
+
+% LaTeX comes with some default commands, however there are many things you will want to be able to do that are not default. Packages allow us to enhance our document with premade commands. More information about these packages can be found by googling! AMS is the American Mathematical Society and the ams packages are standard packages used in math papers and beyond.
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% Environments in LaTeX help us format large chunks of text. Environments are delimited by an opening and closing tag: \begin{...} and \end{...}. For instance if you add \begin{center} Hello World! \end{center} to the document body (i.e. after the \begin{document} line and before \end{document}), you will see that Hello World is centered on the line. There are many environments and you can even define your own.
+
+% Theorems are numbered environments. If we use \begin{theorem} ... \end{theorem} it will format the text using the theorem environment and will also tell us which # theorem it is in the document. These commands help us define new environments which will follow the numbering system. Try adding the \begin{theorem} ... \end {theorem} environment to the document and see what happens!
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{lemma}{Lemma}
+
+% This redefines what the command \qedsymbol does in the document, replacing the default QED symbol with a black square. Add the command \qedsymbol to the body of the document and try commenting out this line to see how the symbol changes!
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+% \newcommand{nameOfCommand}{definition} is a command which defines new commands! The name of the command comes first and in the second set of braces is what the command does. We can name a command whatever we want (as long as that name isn't already taken) and we will use \nameOfCommand to call the command in the document. For instance in the first one we define a new command called addmedskip which we can call in our document as \addmedskip. It is defined the same as doing \addvspace{\medskipamount} which adds a medium amount of vertical empty space to the document. It's just more convenient to type \addmedskip instead of \addvspace{\medskipamount} when you want to do this!
+\newcommand{\addmedskip}{\addvspace{\medskipamount}}
+\newcommand{\addbigskip}{\addvspace{\bigskipamount}}
+
+% Counters are used to keep track of page numbers, tables, etc. Custom ones can be defined and set using the command \setcounter. We can then refer to these counters in other commands or in our document. We can also change the counter at a later point in the document. It's like having an integer variable in your document! We use it here to automatically add Problem #. in bold whenever we have a new problem.
+\newcounter{problemnum}
+\setcounter{problemnum}{0}
+
+% Here we are defining our own environment named problem. This environment adds a big skip, sets the part counter to 0, and then increments the problemnum counter. It then add a bolded Problem # to the beginning of the problem. Also note how we used our custom \addbigskip command we defined above.
+\newenvironment{problem}
+  {\addbigskip \setcounter{partnum}{0}
+   \noindent\stepcounter{problemnum}\textbf{Problem \arabic{problemnum}.\ }}
+  {\par\addbigskip}
+
+% This command helps us automatically generate the title. Commands can also take any number of inputs -- not just one. This is designated by []. This command takes 2 inputs, and the inputs are referred to as #1 and #2 in the definition. You can see how this works when it is called below!
+\newcommand{\problemset}[2]{
+  \begin{center}
+  \Large{\textbf{CS 131 -- Spring 2020, Assignment #1}}\\
+  \large{\textbf{Problems must be submitted by #2, on Gradescope.}}
+  \end{center}
+}
+
+% Another new counter and new environment. This one helps us automatically do parts a) b) c) and d). We could also have used the enumerate and itemize environments. I would check these two environments out if I was you!
+\newcounter{partnum}
+\setcounter{partnum}{0}
+\newenvironment{ppart}
+  {\addmedskip
+   \noindent\stepcounter{partnum}\textbf{\alph{partnum})}\ }
+  {\par\addbigskip}
+
+% These are commands to help us quickly do absolute value and include the symbols for the Natural Numbers and Integers respectively. It would be tedious to type all of this every time we had absolute values, and it would also be hard to read. Compare how much easier it is to parse \abs{x} rather than \lvert x \rvert. \mathbb commands come from the amsfonts package. Without the statement above adding that package, this document wouldn't compile!
+\newcommand\abs[1]{\lvert{#1}\rvert}
+\newcommand{\nat}{\mathbb{N}}
+\newcommand{\inte}{\mathbb{Z}}
+
+\DeclareMathOperator{\lcm}{lcm}
+
+% Wow all of that and we haven't even gotten to the document yet! Well the good thing is once you have your preamble written and how you like it, you can always copy it to your future documents and tweak it as needed. Now we start our document with \begin{document}. At the end of the document there will be a corresponding \end{document} tag. In fact, whenever we have a \begin{...} tag there must always be a matching \end{...} tag. 
+\begin{document}
+
+% Notice for this command we have two sets of curly braces. This is because when we defined problemset we said it took 2 inputs. Try changing these inputs and see how the title changes.
+\problemset{1}{Wednesday January 29, 2020 11:59pm}
+
+% This first command tells LaTeX to not automatically indent. \textbf bolds the text in the curly braces. Also try \textit and \texttt.
+\noindent \textbf{How to submit:}
+% The url command comes from the hyperref package. Again without adding that package we would get a compile error! It lets you click on the url and visit the webpage! Try clicking on gradescope url in the compiled document to the right (if on overleaf).
+Create an account on \url{https://gradescope.com} using your \texttt{bu.edu} email address. You'll find yourself already enrolled in CS 131 on gradescope. If not, use code 9N53KK to add yourself to the class.
+
+You will be submitting your file(s) on gradescope: a \textbf{.pdf} file with your write up for written exercises 1-3 and an optional python file for exercise 4. Your files must be named \textbf{ps1.pdf} and \textbf{ps1.py} (the file names are case sensitive). These will be submitted for the assignments \textbf{ps1-written} and \textbf{ps1-code} respectively. \textbf{It will take time for you to learn gradescope and set up your environment. Do a test submission by Monday at the latest to make sure you know how to do it. You can replace your submission later.}
+
+% We now enter the problem environment which helps us format the text of our problems. Notice how the document knows this is problem 1 without us saying it is problem 1. That is because in the preamble we set the problem counter to 0. When we use the problem environment, it will increment the counter to 1. It then gets the value of the counter (now 1) to get the correct Problem #.
+\begin{problem} (20 points) 
+Analyze the logical forms of the following statements.
+
+% Similar to above, the ppart environment is helping us keep track of which part we are on. Instead of numbered 1, 2, 3, 4, ... we have it set to do a, b, c, d. Compare our definitions for the problem and ppart environments above in the preamble and try to figure out what we did differently to achieve this.
+\begin{ppart}
+Mary and Kevin are not both in CS131.
+% Now that this ppart is over, we end it with a corresponding end tag.
+\end{ppart}
+
+% Notice that the counter was incremented to 2/b as desired.
+\begin{ppart}
+Mary and Kevin are both not in CS131.
+\end{ppart}
+
+\begin{ppart}
+Either Mary or Kevin is not in CS131.
+\end{ppart}
+
+\begin{ppart}
+Neither Mary nor Kevin is in CS131.
+\end{ppart}
+% We then are done with this problem so we have the corresponding \end{problem} tag.
+\end{problem}
+
+\begin{problem} (45 points)
+% Some symbols need to be input in special ways. \" will add an umlaut to the following character. Other characters have special meaning, like \ and %. To add an \ or % to your document you need to do specific things for specific symbols. For \ we use the command \textbackslash. For % we do \%. If a symbol isn't showing up trying googling how to ``escape" it. Did you notice that I wrote ``escape" instead of "escape"? This is because in LaTeX " and ' are only the right closing quotation mark(s). To get the opening one(s), use the grave accent mark ` (top left of the QWERTY keyboard).
+Three children --- Anna, Bj\"orn, and Cathy --- are playing in the mud. They are honest, logical, can see each other's faces, but cannot see their own.
+% $ ... $  is the inline math mode. It allows us to type math within a paragraph of text. We can also use \( ... \) or \begin{math} ... \end{math}, but typically $ is used. It formats text and certain commands can only be used in math mode. Here we are putting A, B and C in math mode to italicize it consistently. Later if we wanted to have the math text ``A and B" (with the logical and operator) we would do so typing $A \land B$. If we didn't do $A$, $B$, and $C$ then these letters wouldn't be consistently italicized. Notice how $A$ differs from the A in Anna for instance.
+Let $A$, $B$, and $C$ be Boolean variables that represent whether the face of Anna, Bj\"orn, and Cathy, respectively, is muddy.
+
+The children are told, by their parents, that they must come home if their faces are muddy. They are quite obedient; however, if they have any plausible doubt about whether their faces are muddy, they will stay and play, because they are children, after all. Thus, every child, as soon as he or she can conclude definitively that his/her face is muddy, will go home to wash it. But if a definitive conclusion cannot be made, the child will stay and play. And, of course, pointing out that someone's face is muddy is against their honor system.
+
+There is a traffic light, and children must wait for the walk sign before they go home. 
+ 
+ \begin{ppart} (5 points)
+An adult named David, who does not know the honor system, comes up to the children, says ``At least one of you has a muddy face," and leaves.   Write down the Boolean formula  (with variables $A$, $B$, and $C$) that represents his statement.
+ \end{ppart}
+
+\begin{ppart} (10 points)
+	When the walk sign next turns white, no one walks home. What can you conclude about $A$, $B$, and $C$ (write it down as a Boolean formula)? Justify your answer. (Hint: first think about what you can conclude about $B$ and $C$ given that Anna did not walk home; then do the same for the other two pairs.)
+\end{ppart}
+
+\begin{ppart} (10 points)
+	When the walk sign next turns white for the second time, again no one walks home. What can you conclude about $A$, $B$, and $C$ (write it down as a Boolean formula)? Justify your answer. (Hint: it may, at first, help to think about only the fact that Anna didn't walk home in the previous part, and Bj\"orn didn't walk home in this part. Then generalize to the other cases.)
+\end{ppart}
+
+\begin{ppart} (10 points)
+	Explain why every child will walk home when the walk sign turns white for the third time.
+\end{ppart}
+
+\begin{ppart} (10 points)
+	Note that all the children saw each other's muddy faces, and David's initial statement seemingly told them nothing they hadn't already known. Would they have walked home without his initial statement? Why or why not?
+\end{ppart}
+\end{problem}
+
+\begin{problem} (35 points)
+
+\begin{ppart} (15 points)
+% Again notice how we use `` for the opening quotation marks and not "!
+Prove using laws of propositional logic (not truth tables), the following: ``if you study computer science, you'll be smart and if you study computer science, you'll be happy" is equivalent to ``if you study computer science, you'll be smart and happy''. Let $p$ denote ``you study computer science," $q$ denote ``you'll be smart'' and ``r'' denote ``you'll be happy''. 
+\end{ppart}
+
+\begin{ppart} (20 points)
+% \rightarrow provides the conditional symbol. There are a lot of symbols to know. You will eventually get the hang of it but if you're looking for a specific symbol try googling the symbols name + ``LaTeX". Alternative try \url{http://detexify.kirelabs.org/classify.html} where you can draw the symbol you want and it will try to tell you what the command is!
+Prove, now using truth tables, that if $(p \rightarrow q)$ and $(q \rightarrow r)$, then $(p \rightarrow r)$. That is, prove that 
+% $$ ... $$ enters math mode as well but instead of inline it enters display mode which centers it in it's own line. If we needed multiple lines we can use \\ in the middle of the text to get a new line. We can also use \begin{equation} ... \end{equation} and \[ ... \]. \begin{equation} however numbers the equation.
+	$$((p \rightarrow q) \land (q \rightarrow r)) \rightarrow (p \rightarrow r)$$ is a tautology.  This result (often used as a law of logic)
+	is known as the ``hypothetical syllogism''. Please show your work by including all columns of the truth table.
+\end{ppart}
+\end{problem}
+
+\begin{problem} \textbf{Optional.} (10 Bonus Points)
+
+Alice, Bob, Charlie, David, and Eve are friends trying to decide whether to go
+skiing or study next weekend.
+Each casts a vote.
+Let their votes be denoted by predicates \texttt{a}, \texttt{b}, \texttt{c},
+\texttt{d}, and \texttt{e} where each is True if the preference is for skiing,
+and False if the preference is for studying.
+Write a python formula (using and, or, not, and
+parentheses -- no "if" statements or other Python operators allowed) that is
+True if the majority wants to ski, and False if the majority wants to study.
+Note that you can break long lines in Python with a backslash.
+\end{problem}
+
+\end{document}
